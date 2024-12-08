@@ -8,6 +8,7 @@ import { Button } from '../ui/button';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../Store/store';
 import { addItem } from '../../../Store/cartSlice';
+import { toast } from '@/hooks/use-toast';
 
 type Props = {
     product: Product;
@@ -22,7 +23,12 @@ const ProductCard = ({ product }: Props) => {
     console.log(items);
 
     const dispatch = useDispatch();
+
     const addToCartHandler = (product: Product) => {
+        toast({
+            description: 'Item Added to Cart',
+            variant: 'success',
+        })
         dispatch(addItem(product));
     }
 

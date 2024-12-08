@@ -3,6 +3,8 @@ import { Product } from '../../../../../../typing';
 import { getProductByCategory, getSingleProduct } from '../../../../../../Request/requests';
 import Image from 'next/image';
 import { StarIcon } from 'lucide-react';
+import AddToCart from './add-cart';
+import ProductCard from '@/components/Home/ProductCard';
 
 const ProductDetalis = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
@@ -35,10 +37,28 @@ const ProductDetalis = async ({ params }: { params: { id: string } }) => {
           </div>
           <span className="w-1/4 h-[1.6px] bg-gray-400 rounded-lg block mt-4 opacity-20 mb-4"></span>
           <h1 className="text-3xl md:text-4xl lg:text-6xl text-blue-950 font-bold">${singleProduct?.price.toFixed(2)}</h1>
+          <p className="mt-4 text-black text-base opacity-70">
+            {singleProduct.description}
+          </p>
+          <p className='mt-4 text-black text-sm opacity-70 font-semibold'>
+            Category: {singleProduct?.category}
+          </p>
+          <p className='mt-2 text-black text-sm opacity-70 font-semibold'>
+            Tag: Shop,WDS
+          </p>
+          <p className='mt-2 text-black text-sm opacity-70 font-semibold'>
+            SKD: {Math.random() * 500}
+          </p>
+          <AddToCart product={singleProduct} />
         </div>
-        <p className="mt-4 text-black text-base opacity-70">
-          {singleProduct.description}
-        </p>
+      </div>
+      <div className='w-4/5 mt-16 mx-auto'>
+        <h1 className="text-black text-2xl font-semibold">Related Products</h1>
+        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {relatedProduct.map((product: Product) => {
+            return <ProductCard key={product.id} product={product} />
+          })}
+        </div>
       </div>
     </div>
   )
